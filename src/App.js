@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { AppBar, Drawer, List, ListItem } from 'material-ui';
 
 class App extends Component {
+
+  constructor () {
+    super();
+    this.state = {
+      drawerOpened: false
+    }
+  }
+
+  openDrawer() {
+    this.setState({
+      drawerOpened: !this.state.drawerOpened
+    });
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <MuiThemeProvider> 
+        <div>
+          <AppBar title="My App" onLeftIconButtonClick={() => this.openDrawer()}/>
+          <Drawer open={this.state.drawerOpened} docked={false} onRequestChange={()=> this.openDrawer()}> 
+            <List>
+              <ListItem> Cadastro  Usuário </ListItem>
+              <ListItem> Lista Usuários</ListItem>
+              <ListItem> Sair</ListItem>
+            </List>
+          </Drawer>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
 
-export default App;
+export default App;  
+
